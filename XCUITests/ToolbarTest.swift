@@ -101,8 +101,8 @@ class ToolbarTests: BaseTestCase {
         //Workaround when testing on iPhone. If the orientation is in landscape on iPhone the tests will fail.
         if !iPad() {
             XCUIDevice.shared.orientation = UIDeviceOrientation.portrait
+            waitForExistence(app.otherElements["Navigation Toolbar"])
         }
-        waitForExistence(app.buttons["HomePanels.TopSites"])
         navigator.openURL(website1["url"]!, waitForLoading: true)
         let pageActionMenuButton = app.buttons["TabLocationView.pageOptionsButton"]
         waitForExistence(pageActionMenuButton, timeout: 5)
@@ -115,6 +115,7 @@ class ToolbarTests: BaseTestCase {
         XCTAssertTrue(hiddenStatusbarElement.isHittable)
         hiddenStatusbarElement.tap()
         let topElement = app.webViews.otherElements["Internet for people, not profit — Mozilla"].children(matching: .other).matching(identifier: "navigation").element(boundBy: 0).staticTexts["Mozilla"]
+        waitForExistence(topElement)
         XCTAssertTrue(topElement.isHittable)
     }
 
